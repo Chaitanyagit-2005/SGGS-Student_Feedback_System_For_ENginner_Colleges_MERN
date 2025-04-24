@@ -1,0 +1,33 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+  <h3>👨‍🏫 <%= user.name %> – Teacher Dashboard</h3>
+
+  <h5 class="mt-4">📘 Your Subjects & Feedback Summary</h5>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Subject</th>
+        <th>Total Feedbacks</th>
+        <th>Average Rating</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% subjects.forEach(sub => { %>
+        <tr>
+          <td><%= sub.name %></td>
+          <td><%= sub.totalFeedbacks || 0 %></td>
+          <td><%= sub.avgRating || "0.00" %> / 5</td>
+          <td>
+            <a href="/teacher/subject-feedback/<%= sub._id %>" class="btn btn-sm btn-primary">
+              View Details
+            </a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("../partials/footer") %>

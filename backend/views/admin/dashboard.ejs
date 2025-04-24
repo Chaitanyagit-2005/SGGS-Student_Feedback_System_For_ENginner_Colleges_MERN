@@ -1,0 +1,75 @@
+<%- include("../partials/header") %>
+<link rel="stylesheet" href="/css/style.css">
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">🛠️ Admin Dashboard</h2>
+
+  <div class="row g-4">
+    
+    <!-- Students Card -->
+    <div class="col-md-4">
+      <div class="card text-white bg-primary h-100 shadow">
+        <div class="card-body text-center">
+          <i class="fas fa-user-graduate fa-3x mb-3"></i>
+          <h5 class="card-title">Manage Students</h5>
+          <p class="card-text">View, add, or upload students manually</p>
+          <a href="/admin/students" class="btn btn-light btn-sm">View List</a>
+          <a href="/admin/students#add-student" class="btn btn-outline-light btn-sm">➕ Add Student</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teachers Card -->
+    <div class="col-md-4">
+      <div class="card text-white bg-success h-100 shadow">
+        <div class="card-body text-center">
+          <i class="fas fa-chalkboard-teacher fa-3x mb-3"></i>
+          <h5 class="card-title">Manage Teachers</h5>
+          <p class="card-text">View, add, or bulk upload teachers</p>
+          <a href="/admin/teachers" class="btn btn-light btn-sm">View List</a>
+          <a href="/admin/upload" class="btn btn-outline-light btn-sm">Upload CSV</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subjects Card -->
+    <div class="col-md-4">
+      <div class="card text-white bg-warning h-100 shadow">
+        <div class="card-body text-center">
+          <i class="fas fa-book fa-3x mb-3"></i>
+          <h5 class="card-title">Manage Subjects</h5>
+          <p class="card-text">Assign teachers and publish forms</p>
+          <a href="/admin/add-subject" class="btn btn-dark btn-sm">Add Subject</a>
+          <a href="/admin/subjects" class="btn btn-outline-dark btn-sm">View Subjects</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Report Card -->
+    <div class="col-md-4">
+      <div class="card text-white bg-danger h-100 shadow">
+        <div class="card-body text-center">
+          <i class="fas fa-chart-bar fa-3x mb-3"></i>
+          <h5 class="card-title">Feedback Report</h5>
+          <p class="card-text">Analyze feedbacks by subject & teacher</p>
+          <a href="/admin/feedback-report" class="btn btn-light btn-sm">View Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logout / Future Options -->
+    <div class="col-md-4">
+      <div class="card bg-light border-dark h-100 shadow">
+        <div class="card-body text-center">
+          <i class="fas fa-sign-out-alt fa-3x mb-3 text-danger"></i>
+          <h5 class="card-title">Logout</h5>
+          <p class="card-text">Securely logout from dashboard</p>
+          <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,35 @@
+<%- include("partials/header") %>
+
+<h3>👋 Welcome <%= user.name %> (Student)</h3>
+<a href="/feedback-form" class="btn btn-success mb-3">+ Submit New Feedback</a>
+
+<h5>Your Submitted Feedback:</h5>
+
+<% if (feedbacks.length === 0) { %>
+  <p>No feedback submitted yet.</p>
+<% } else { %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Teacher</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Responses (Average)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% feedbacks.forEach(f => { 
+        const avg = f.responses.reduce((sum, r) => sum + r.rating, 0) / f.responses.length;
+      %>
+        <tr>
+          <td><%= f.teacherName %></td>
+          <td><%= f.subject %></td>
+          <td><%= new Date(f.createdAt).toLocaleDateString() %></td>
+          <td><%= avg.toFixed(2) %> / 5</td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include("partials/footer") %>

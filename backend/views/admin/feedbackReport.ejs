@@ -1,0 +1,73 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+  <h3 class="mb-4">📊 Feedback Analytics Report</h3>
+
+  <% if (report.length === 0) { %>
+    <div class="alert alert-warning">⚠️ No feedback data available.</div>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Department</th>
+            <th>Year</th>
+            <th>Total Feedbacks</th>
+            <th>Average Rating</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <% report.forEach(row => { %>
+            <tr>
+              <td><%= row.subject %></td>
+              <td><%= row.teacher %></td>
+              <td><%= row.department %></td>
+              <td><%= row.year %></td>
+              <td><span class="badge bg-info"><%= row.total %></span></td>
+              <td><span class="badge bg-success fs-6"><%= row.avg %></span> / 5</td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <canvas id="ratingChart" height="120" class="mt-5"></canvas>
+  <% } %>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  <% if (report.length > 0) { %>
+    const ctx = document.getElementById('ratingChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [<%= report.map(r => `"${r.subject.replace(/"/g, '')}"`).join(', ') %>],
+        datasets: [{
+          label: '📈 Avg. Rating',
+          data: [<%= report.map(r => r.avg).join(', ') %>],
+          backgroundColor: 'rgba(75, 192, 192, 0.7)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          title: { display: true, text: 'Average Rating per Subject' }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 5
+          }
+        }
+      }
+    });
+  <% } %>
+</script>
+
+<%- include("../partials/footer") %>

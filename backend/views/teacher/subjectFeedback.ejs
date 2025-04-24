@@ -1,0 +1,37 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+  <a href="/teacher/export-feedback/<%= feedbacks[0]?.subject %>" class="btn btn-outline-success btn-sm">
+    📥 Export CSV
+  </a>
+  
+  <a href="/teacher/export-pdf/<%= feedbacks[0]?.subject %>" class="btn btn-outline-danger btn-sm">
+    📄 Export PDF
+  </a>
+  
+  <h3>📋 Individual Feedback Responses</h3>
+
+  <% if (feedbacks.length === 0) { %>
+    <p>No feedback submitted yet.</p>
+  <% } else { %>
+    <% feedbacks.forEach((fb, index) => { %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>Feedback #<%= index + 1 %></strong> – Submitted by <%= fb.submittedBy.name %> (<%= fb.submittedBy.email %>)
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <% fb.responses.forEach(r => { %>
+              <li class="list-group-item">
+                <strong><%= r.question %></strong>: <%= r.rating %> / 5
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+  
+<%- include("../partials/footer") %>

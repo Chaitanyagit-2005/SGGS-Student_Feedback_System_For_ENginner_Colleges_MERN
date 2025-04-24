@@ -1,0 +1,28 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+  <h3>🗂️ My Submitted Feedbacks</h3>
+
+  <% if (feedbacks.length === 0) { %>
+    <p>You haven’t submitted any feedback yet.</p>
+  <% } else { %>
+    <% feedbacks.forEach((fb, index) => { %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong><%= fb.subject?.name %></strong> – Feedback #<%= index + 1 %>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <% fb.responses.forEach(r => { %>
+              <li class="list-group-item">
+                <strong><%= r.question %></strong>: <%= r.rating %> / 5
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

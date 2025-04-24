@@ -1,0 +1,25 @@
+<ul class="nav flex-column">
+    <% if (user.role === 'admin') { %>
+      <li class="nav-item"><a class="nav-link" href="/admin/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="/admin/students"><i class="fas fa-user-graduate"></i> Students</a></li>
+      <li class="nav-item"><a class="nav-link" href="/admin/teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+      <li class="nav-item"><a class="nav-link" href="/admin/add-subject"><i class="fas fa-book"></i> Subjects</a></li>
+      <li class="nav-item"><a class="nav-link" href="/admin/upload"><i class="fas fa-file-upload"></i> Bulk Upload</a></li>
+      <li class="nav-item"><a class="nav-link" href="/admin/feedback-report"><i class="fas fa-chart-line"></i> Feedback Report</a></li>
+    <% } else if (user.role === 'teacher') { %>
+      <li class="nav-item"><a class="nav-link" href="/teacher/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="/teacher/dashboard"><i class="fas fa-book-reader"></i> My Subjects</a></li>
+    <% } else if (user.role === 'student') { %>
+      <li class="nav-item"><a class="nav-link" href="/student/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="/student/my-feedbacks"><i class="fas fa-file-alt"></i> My Feedbacks</a></li>
+    <% } %>
+    
+    <hr class="text-white" />
+  
+    <li class="nav-item">
+      <a class="nav-link text-danger" href="/api/auth/logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
+  </ul>
+  

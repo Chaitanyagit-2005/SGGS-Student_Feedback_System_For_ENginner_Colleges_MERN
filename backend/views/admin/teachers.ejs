@@ -1,0 +1,61 @@
+<%- include("../partials/header") %>
+
+<div class="container-fluid">
+  <div class="row">
+    
+    
+
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10 p-4">
+      <h3 class="text-success mb-4"><i class="fas fa-chalkboard-teacher"></i> Add Teacher</h3>
+
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body bg-light">
+          <form action="/admin/add-teacher" method="POST" class="row g-3 align-items-center">
+            <div class="col-md-4">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="name" placeholder="Enter full name" class="form-control" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Email Address</label>
+              <input type="email" name="email" placeholder="Enter email" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mt-4 pt-2">
+              <button type="submit" class="btn btn-success w-100">
+                <i class="fas fa-user-plus"></i> Add Teacher
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <% if (message) { %>
+        <div class="alert alert-info"><%= message %></div>
+      <% } %>
+
+      <hr/>
+      <h4 class="mb-3">📋 Current Teachers</h4>
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% teachers.forEach(t => { %>
+            <tr>
+              <td><%= t.name %></td>
+              <td><%= t.email %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,8 @@
+body {
+    background-color: #f4f6f9;
+  }
+  .nav-link:hover {
+    background-color: #495057;
+    border-radius: 5px;
+  }
+  

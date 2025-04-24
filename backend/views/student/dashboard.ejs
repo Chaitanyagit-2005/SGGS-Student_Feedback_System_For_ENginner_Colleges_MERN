@@ -1,0 +1,98 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+  <h3>👋 Welcome, <%= user.name %> (Student)</h3>
+  <p>Your Department: <%= user.department?.name %>, Year: <%= user.year %></p>
+
+  <% if (subjects.length === 0) { %>
+    <div class="alert alert-info">No published subjects available or feedback already submitted for all.</div>
+  <% } else { %>
+    <!-- ✅ Feedback Success/Warning Message -->
+    <div id="feedbackMessage" class="alert d-none mt-3"></div>
+
+    <form id="feedbackForm" onsubmit="return handleSubmit(event)">
+      <div class="mb-3">
+        <label>Select Subject</label>
+        <select name="subjectId" class="form-select" id="subjectSelect" required>
+          <% subjects.forEach(sub => { %>
+            <option value="<%= sub._id %>" data-teacher="<%= sub.teacher.name %>">
+              <%= sub.name %> (Teacher: <%= sub.teacher.name %>)
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div id="questions">
+        <% const qs = [
+          "Has the Teacher covered entire Syllabus?",
+          "Covered relevant topics beyond syllabus?",
+          "Communication & Clarity?",
+          "Technical knowledge?",
+          "Use of teaching aids?",
+          "Supportive and helpful?"
+        ]; %>
+        <% qs.forEach((q, i) => { %>
+          <div class="mb-3">
+            <label><%= q %></label>
+            <select class="form-select rating" data-question="<%= q %>">
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Very Good</option>
+              <option value="3">3 - Good</option>
+              <option value="2">2 - Poor</option>
+              <option value="1">1 - Very Poor</option>
+            </select>
+          </div>
+        <% }) %>
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit Feedback</button>
+    </form>
+  <% } %>
+</div>
+
+<script>
+async function handleSubmit(event) {
+  event.preventDefault();
+
+  const ratings = document.querySelectorAll('.rating');
+  const questions = [];
+
+  ratings.forEach(select => {
+    questions.push({
+      question: select.dataset.question,
+      rating: parseInt(select.value)
+    });
+  });
+
+  const subjectSelect = document.getElementById('subjectSelect');
+  const teacher = subjectSelect.options[subjectSelect.selectedIndex].dataset.teacher;
+  const subjectId = subjectSelect.value;
+
+  const payload = {
+    subjectId,
+    responses: JSON.stringify({
+      teacherName: teacher,
+      questions
+    })
+  };
+
+  const res = await fetch('/student/submit-feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await res.json();
+  const msgBox = document.getElementById('feedbackMessage');
+
+  msgBox.textContent = result.message;
+  msgBox.className = `alert mt-3 alert-${result.success ? 'success' : 'warning'}`;
+  msgBox.classList.remove('d-none');
+
+  if (result.success) {
+    document.getElementById('feedbackForm').reset();
+  }
+}
+</script>
+
+<%- include("../partials/footer") %>

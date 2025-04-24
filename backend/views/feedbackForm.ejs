@@ -1,0 +1,65 @@
+<%- include("partials/header") %>
+
+<h3 class="mb-4">Student Feedback Form</h3>
+<p>👋 Welcome, <b><%= studentName %></b></p>
+
+
+<form action="/submit-feedback" method="POST" class="card p-4 shadow-sm bg-white">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Teacher Name</label>
+      <input type="text" class="form-control" name="teacherName" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label fw-bold">Subject</label>
+      <input type="text" class="form-control" name="subject" required>
+    </div>
+  </div>
+
+  <hr>
+
+  <% const questions = [ 
+    "Has the Teacher covered entire Syllabus as prescribed by University/ College/ Board?",
+    "Has the Teacher covered relevant topics beyond syllabus",
+    "Effectiveness of Teacher in terms of: Technical content/course content",
+    "Effectiveness of Teacher in terms of: Communication Skills",
+    "Effectiveness of Teacher in terms of: Use of Teaching Aids",
+    "Pace on which contents were covered",
+    "Motivation and inspiration for students to Learn",
+    "Support for the development of Students’ Skill: Practical Demonstration",
+    "Support for the development of Students’ Skill: Hands on Training",
+    "Clarity of expectations of students",
+    "Feedback provided on Students’ progress",
+    "Willingness to offer help and advice to students"
+  ]; %>
+
+  <table class="table table-bordered align-middle text-center">
+    <thead class="table-light">
+      <tr>
+        <th style="width: 45%">Question</th>
+        <th>5<br><small>Excellent</small></th>
+        <th>4<br><small>Very Good</small></th>
+        <th>3<br><small>Good</small></th>
+        <th>2<br><small>Poor</small></th>
+        <th>1<br><small>Very Poor</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% questions.forEach((q, i) => { %>
+        <tr>
+          <td class="text-start"><%= q %></td>
+          <% for (let r = 5; r >= 1; r--) { %>
+            <td>
+              <input class="form-check-input" type="radio" name="rating<%= i %>" value="<%= r %>" required>
+            </td>
+          <% } %>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <input type="hidden" name="questionCount" value="<%= questions.length %>">
+  <button type="submit" class="btn btn-primary mt-3 w-100">🚀 Submit Feedback</button>
+</form>
+
+<%- include("partials/footer") %>

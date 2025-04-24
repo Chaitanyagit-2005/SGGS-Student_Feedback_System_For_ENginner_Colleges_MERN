@@ -1,0 +1,46 @@
+<%- include("../partials/header") %>
+
+<h3 class="mb-4">🧑‍💼 Add Subject to Assign Teacher</h3>
+
+<form method="POST" action="/admin/add-subject">
+  <div class="mb-3">
+    <label>Subject Name</label>
+    <input type="text" class="form-control" name="name" required />
+  </div>
+
+  <div class="mb-3">
+    <label>Select Department</label>
+    <select name="department" class="form-select" required>
+      <% departments.forEach(dep => { %>
+        <option value="<%= dep._id %>"><%= dep.name %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Year</label>
+    <select name="year" class="form-select" required>
+      <% years.forEach(y => { %>
+        <option value="<%= y %>"><%= y %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Assign Teacher</label>
+    <select name="teacher" class="form-select" required>
+      <% teachers.forEach(t => { %>
+        <option value="<%= t._id %>"><%= t.name %> - <%= t.email %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" name="published" />
+    <label class="form-check-label">Publish Feedback Form?</label>
+  </div>
+
+  <button class="btn btn-success">➕ Add Subject</button>
+</form>
+
+<%- include("../partials/footer") %>

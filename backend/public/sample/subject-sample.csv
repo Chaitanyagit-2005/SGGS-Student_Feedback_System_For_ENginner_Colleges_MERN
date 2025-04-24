@@ -1,0 +1,4 @@
+name,department,year,teacher_email,published
+Compiler Design,Computer,TY,ak.manjramkar@example.com,true
+Digital Circuits,Electronics,SY,meena.joshi@example.com,false
+Fluid Mechanics,Civil,FY,ramesh.nair@example.com,true

@@ -1,0 +1,92 @@
+<%- include("../partials/header") %>
+
+<hr class="mt-4 mb-3"/>
+<h4>➕ Add New Student</h4>
+
+<form action="/admin/add-student" method="POST" class="mb-4">
+  <div class="row">
+    <div class="col-md-3">
+      <input class="form-control" name="name" placeholder="Full Name" required>
+    </div>
+    <div class="col-md-3">
+      <input class="form-control" name="email" placeholder="Email" type="email" required>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="department" required>
+        <option value="">Select Department</option>
+        <% departments.forEach(dep => { %>
+          <option value="<%= dep._id %>"><%= dep.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="year" required>
+        <option value="">Select Year</option>
+        <option>FY</option>
+        <option>SY</option>
+        <option>TY</option>
+        <option>Final</option>
+        <option>MTech-FY</option>
+        <option>MTech-SY</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-success w-100"><i class="fas fa-plus"></i> Add</button>
+    </div>
+  </div>
+</form>
+
+<% if (typeof message !== 'undefined' && message) { %>
+  <div class="alert alert-info"><%= message %></div>
+<% } %>
+
+
+<hr class="my-4"/>
+<div class="container">
+  <h3>👨‍🎓 Student List</h3>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Year</th>
+        <th>✏️ Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(s => { %>
+        <tr>
+          <td><%= s.name %></td>
+          <td><%= s.email %></td>
+          <td><%= s.department?.name || '-' %></td>
+          <td><%= s.year || '-' %></td>
+          <td>
+            <form action="/admin/update-student/<%= s._id %>" method="POST" class="d-flex gap-2">
+              <select name="department" class="form-select" required>
+                <% departments.forEach(dep => { %>
+                  <option value="<%= dep._id %>" <%= (s.department && s.department._id.toString() === dep._id.toString()) ? 'selected' : '' %>>
+                    <%= dep.name %>
+                  </option>
+                <% }) %>
+              </select>
+
+              <select name="year" class="form-select" required>
+                <option value="FY" <%= s.year === 'FY' ? 'selected' : '' %>>FY</option>
+                <option value="SY" <%= s.year === 'SY' ? 'selected' : '' %>>SY</option>
+                <option value="TY" <%= s.year === 'TY' ? 'selected' : '' %>>TY</option>
+                <option value="Final" <%= s.year === 'Final' ? 'selected' : '' %>>Final</option>
+                <option value="MTech-FY" <%= s.year === 'MTech-FY' ? 'selected' : '' %>>MTech-FY</option>
+                <option value="MTech-SY" <%= s.year === 'MTech-SY' ? 'selected' : '' %>>MTech-SY</option>
+              </select>
+
+              <button class="btn btn-sm btn-primary">💾 Save</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("../partials/footer") %>
